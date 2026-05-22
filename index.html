@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Big Idea – Awards Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #f26c3c;
+    --orange-dark: #c94e22;
+    --orange-light: #fff1ec;
+    --black: #0d0d0d;
+    --white: #ffffff;
+    --gray-50: #f9f9f8;
+    --gray-100: #f0efed;
+    --gray-200: #e0dedb;
+    --gray-400: #9e9c97;
+    --gray-600: #5f5d59;
+    --gray-800: #2c2c2a;
+    --success: #1D9E75;
+    --success-light: #E1F5EE;
+    --warning: #BA7517;
+    --warning-light: #FAEEDA;
+    --info: #185FA5;
+    --info-light: #E6F1FB;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    background: rgba(13,13,13,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-logos {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .nav-logos .divider {
+    width: 1px;
+    height: 32px;
+    background: rgba(255,255,255,0.2);
+  }
+  .iaa-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .iaa-mark {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--white);
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+  .iaa-sub {
+    font-size: 8px;
+    letter-spacing: 1.5px;
+    color: var(--gray-400);
+    text-transform: uppercase;
+    line-height: 1.3;
+    max-width: 90px;
+  }
+  .mcx-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+  .mcx-mark {
+    width: 36px;
+    height: 36px;
+    background: var(--orange);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    color: white;
+    letter-spacing: 1px;
+  }
+  .mcx-text {
+    font-size: 11px;
+    color: var(--gray-400);
+    line-height: 1.4;
+    max-width: 80px;
+  }
+  .mcx-text strong {
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 500;
+    display: block;
+  }
+  .quantana-badge {
+    font-size: 10px;
+    color: var(--orange);
+    border: 1px solid rgba(242,108,60,0.3);
+    border-radius: 4px;
+    padding: 3px 8px;
+    letter-spacing: 0.5px;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-link {
+    color: var(--gray-400);
+    text-decoration: none;
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+  }
+  .nav-link:hover, .nav-link.active {
+    color: var(--white);
+    background: rgba(255,255,255,0.08);
+  }
+  .btn-nav-cta {
+    background: var(--orange);
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s;
+  }
+  .btn-nav-cta:hover { background: var(--orange-dark); }
+
+  /* PAGE SYSTEM */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ===================== LANDING PAGE ===================== */
+  .hero {
+    min-height: calc(100vh - 68px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 80px 80px 80px 80px;
+    gap: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(242,108,60,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 20px;
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 8vw, 112px);
+    line-height: 0.92;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+  }
+  .hero-title .outline {
+    -webkit-text-stroke: 2px var(--white);
+    color: transparent;
+  }
+  .hero-title .accent { color: var(--orange); }
+  .hero-desc {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--gray-400);
+    max-width: 420px;
+    margin-bottom: 40px;
+  }
+  .hero-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--orange);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--orange-dark); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-outline:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.05); }
+  .hero-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .stat-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 44px;
+    color: var(--white);
+    line-height: 1;
+  }
+  .stat-num .u { color: var(--orange); font-size: 28px; }
+  .stat-label {
+    font-size: 12px;
+    color: var(--gray-400);
+    margin-top: 4px;
+    letter-spacing: 0.3px;
+  }
+  .flow-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    gap: 0;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .flow-step {
+    text-align: center;
+    flex: 1;
+  }
+  .flow-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(242,108,60,0.15);
+    border: 1px solid rgba(242,108,60,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px;
+    font-size: 16px;
+  }
+  .flow-step-label { font-size: 11px; color: var(--gray-400); }
+  .flow-arrow { color: var(--orange); font-size: 18px; opacity: 0.5; }
+  .partner-strip {
+    background: rgba(255,255,255,0.03);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 28px 80px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    justify-content: center;
+  }
+  .partner-label { font-size: 11px; color: var(--gray-600); letter-spacing: 2px; text-transform: uppercase; }
+  .partner-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .partner-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--orange);
+    opacity: 0.6;
+  }
+  .partner-name { font-size: 13px; color: var(--gray-400); font-weight: 500; }
+
+  /* HOW IT WORKS */
+  .section {
+    padding: 80px;
+    background: var(--black);
+  }
+  .section-dark {
+    background: #111;
+  }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    letter-spacing: 1px;
+    margin-bottom: 48px;
+  }
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 22px;
+    left: 40px;
+    right: 40px;
+    height: 1px;
+    background: rgba(242,108,60,0.3);
+  }
+  .timeline-step { padding: 0 12px; position: relative; }
+  .tl-num {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: white;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+  .tl-title { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 8px; }
+  .tl-desc { font-size: 12px; color: var(--gray-400); line-height: 1.6; }
+
+  /* ===================== SUBMISSION PORTAL ===================== */
+  .portal-layout {
+    min-height: calc(100vh - 68px);
+    display: grid;
+    grid-template-columns: 380px 1fr;
+  }
+  .portal-sidebar {
+    background: #111;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .sidebar-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .sidebar-desc { font-size: 13px; color: var(--gray-400); line-height: 1.7; }
+  .brief-card {
+    background: rgba(242,108,60,0.08);
+    border: 1px solid rgba(242,108,60,0.2);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .brief-title {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 12px;
+    font-family: 'DM Mono', monospace;
+  }
+  .brief-body { font-size: 13px; color: var(--gray-400); line-height: 1.7; }
+  .brief-client {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(242,108,60,0.15);
+  }
+  .client-badge {
+    background: var(--orange);
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+  }
+  .client-name { font-size: 13px; color: var(--white); font-weight: 500; }
+  .scoring-guide { }
+  .score-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 13px;
+  }
+  .score-row:last-child { border-bottom: none; }
+  .score-cat { color: var(--gray-400); }
+  .score-pts {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--orange);
+    background: rgba(242,108,60,0.1);
+    border: 1px solid rgba(242,108,60,0.2);
+    border-radius: 4px;
+    padding: 2px 8px;
+  }
+  .portal-form {
+    padding: 48px 64px;
+    overflow-y: auto;
+    max-height: calc(100vh - 68px);
+  }
+  .form-section-title {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 20px;
+    margin-top: 36px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .form-section-title:first-child { margin-top: 0; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .form-row.full { grid-template-columns: 1fr; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-label { font-size: 12px; color: var(--gray-400); font-weight: 500; }
+  .form-input {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: var(--white);
+    padding: 12px 16px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-input:focus { border-color: var(--orange); }
+  .form-input::placeholder { color: var(--gray-600); }
+  .form-textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+  .upload-zone {
+    border: 2px dashed rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .upload-zone:hover {
+    border-color: var(--orange);
+    background: rgba(242,108,60,0.04);
+  }
+  .upload-icon {
+    font-size: 32px;
+    color: var(--gray-600);
+    margin-bottom: 12px;
+  }
+  .upload-hint { font-size: 12px; color: var(--gray-600); margin-top: 6px; }
+  .upload-main { font-size: 14px; color: var(--gray-400); }
+  .checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .checkbox-row input[type="checkbox"] { margin-top: 2px; accent-color: var(--orange); }
+  .checkbox-label { font-size: 13px; color: var(--gray-400); line-height: 1.5; }
+  .form-submit {
+    margin-top: 32px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .success-toast {
+    display: none;
+    background: var(--success-light);
+    border: 1px solid var(--success);
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 13px;
+    color: #0F6E56;
+    margin-top: 16px;
+    align-items: center;
+    gap: 10px;
+  }
+  .success-toast.visible { display: flex; }
+
+  /* ===================== ORGANIZER DASHBOARD ===================== */
+  .dash-layout {
+    min-height: calc(100vh - 68px);
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    background: var(--gray-50);
+    color: var(--gray-800);
+  }
+  .dash-sidebar {
+    background: var(--black);
+    padding: 32px 0;
+  }
+  .dash-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 24px;
+    font-size: 13px;
+    color: var(--gray-400);
+    cursor: pointer;
+    transition: all 0.15s;
+    border-left: 3px solid transparent;
+  }
+  .dash-nav-item:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+  .dash-nav-item.active { color: var(--white); border-left-color: var(--orange); background: rgba(242,108,60,0.08); }
+  .dash-nav-icon { font-size: 16px; width: 20px; text-align: center; }
+  .dash-nav-section {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-600);
+    padding: 20px 24px 8px;
+    font-family: 'DM Mono', monospace;
+  }
+  .dash-main {
+    padding: 36px 48px;
+    overflow-y: auto;
+    max-height: calc(100vh - 68px);
+  }
+  .dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+  }
+  .dash-page-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--gray-800);
+    letter-spacing: 1px;
+  }
+  .dash-page-sub { font-size: 13px; color: var(--gray-400); }
+  .metric-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .metric-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .metric-label { font-size: 11px; color: var(--gray-400); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .metric-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--gray-800);
+    line-height: 1;
+  }
+  .metric-change {
+    font-size: 11px;
+    margin-top: 4px;
+    color: var(--success);
+  }
+  .panel {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .panel-title { font-size: 14px; font-weight: 600; color: var(--gray-800); }
+  .btn-sm {
+    background: var(--orange);
+    color: white;
+    border: none;
+    padding: 7px 16px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-sm-ghost {
+    background: transparent;
+    color: var(--gray-600);
+    border: 1px solid var(--gray-200);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .submissions-table { width: 100%; border-collapse: collapse; }
+  .submissions-table th {
+    text-align: left;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    padding: 0 24px 12px;
+    font-weight: 500;
+  }
+  .submissions-table td {
+    padding: 14px 24px;
+    font-size: 13px;
+    color: var(--gray-800);
+    border-top: 1px solid var(--gray-100);
+    vertical-align: middle;
+  }
+  .sub-team { font-weight: 500; }
+  .sub-uni { font-size: 12px; color: var(--gray-400); }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .badge-new { background: #E6F1FB; color: var(--info); }
+  .badge-shortlisted { background: var(--success-light); color: #0F6E56; }
+  .badge-reviewing { background: var(--warning-light); color: #634206; }
+  .check-btn {
+    width: 20px; height: 20px;
+    border: 2px solid var(--gray-200);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    background: white;
+  }
+  .check-btn.checked {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: white;
+  }
+  .judge-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    padding: 20px 24px;
+  }
+  .judge-card {
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+  .judge-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-600);
+  }
+  .judge-avatar.chief {
+    background: rgba(242,108,60,0.1);
+    color: var(--orange);
+    border: 2px solid var(--orange);
+  }
+  .judge-name { font-size: 12px; font-weight: 600; color: var(--gray-800); margin-bottom: 2px; }
+  .judge-org { font-size: 10px; color: var(--gray-400); margin-bottom: 10px; }
+  .judge-progress {
+    height: 4px;
+    background: var(--gray-100);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+  .judge-bar {
+    height: 100%;
+    background: var(--success);
+    border-radius: 2px;
+  }
+  .judge-count { font-size: 10px; color: var(--gray-400); }
+  .leaderboard-table { width: 100%; border-collapse: collapse; }
+  .leaderboard-table th {
+    text-align: left;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    padding: 0 24px 12px;
+    font-weight: 500;
+  }
+  .leaderboard-table td {
+    padding: 12px 24px;
+    font-size: 13px;
+    border-top: 1px solid var(--gray-100);
+    vertical-align: middle;
+  }
+  .rank-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--gray-400);
+  }
+  .rank-1 { color: #D4AF37; }
+  .rank-2 { color: #9E9E9E; }
+  .rank-3 { color: #cd7f32; }
+  .score-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .score-bar-bg {
+    flex: 1;
+    height: 6px;
+    background: var(--gray-100);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .score-bar-fill {
+    height: 100%;
+    background: var(--orange);
+    border-radius: 3px;
+  }
+  .score-total {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gray-800);
+    min-width: 36px;
+    text-align: right;
+  }
+
+  /* ===================== JUDGING PORTAL ===================== */
+  .judge-portal {
+    min-height: calc(100vh - 68px);
+    background: var(--gray-50);
+    color: var(--gray-800);
+  }
+  .judge-topbar {
+    background: white;
+    border-bottom: 1px solid var(--gray-200);
+    padding: 16px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .judge-topbar-title { font-size: 13px; font-weight: 600; color: var(--gray-800); }
+  .judge-topbar-sub { font-size: 12px; color: var(--gray-400); margin-top: 2px; }
+  .judge-progress-bar {
+    flex: 1;
+    max-width: 300px;
+    margin: 0 40px;
+  }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--gray-400);
+    margin-bottom: 6px;
+  }
+  .progress-track {
+    height: 6px;
+    background: var(--gray-100);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--orange);
+    border-radius: 3px;
+    width: 37.5%;
+  }
+  .judge-content {
+    display: grid;
+    grid-template-columns: 280px 1fr 300px;
+    gap: 0;
+    min-height: calc(100vh - 140px);
+  }
+  .judge-list-panel {
+    background: white;
+    border-right: 1px solid var(--gray-200);
+    padding: 20px 0;
+  }
+  .judge-list-header {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    padding: 0 20px 12px;
+    font-family: 'DM Mono', monospace;
+    border-bottom: 1px solid var(--gray-100);
+    margin-bottom: 8px;
+  }
+  .judge-entry-item {
+    padding: 14px 20px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    position: relative;
+  }
+  .judge-entry-item:hover { background: var(--gray-50); }
+  .judge-entry-item.active { border-left-color: var(--orange); background: #fff9f7; }
+  .judge-entry-item.scored { }
+  .entry-team { font-size: 13px; font-weight: 500; color: var(--gray-800); }
+  .entry-uni { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
+  .entry-scored-badge {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 10px;
+    color: var(--success);
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+  .judge-submission-panel { padding: 32px 40px; }
+  .submission-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--gray-800);
+    margin-bottom: 4px;
+  }
+  .submission-meta { font-size: 13px; color: var(--gray-400); margin-bottom: 24px; }
+  .submission-preview {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 20px;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--gray-400);
+    font-size: 13px;
+  }
+  .submission-desc {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 20px 24px;
+    font-size: 13px;
+    color: var(--gray-600);
+    line-height: 1.7;
+  }
+  .rubric-panel {
+    background: white;
+    border-left: 1px solid var(--gray-200);
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .rubric-title {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 20px;
+  }
+  .rubric-category {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .rubric-category:last-of-type { border-bottom: none; }
+  .rubric-cat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .rubric-cat-name { font-size: 13px; font-weight: 600; color: var(--gray-800); }
+  .rubric-score-display {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    color: var(--orange);
+    font-weight: 500;
+  }
+  .rubric-desc { font-size: 11px; color: var(--gray-400); margin-bottom: 10px; line-height: 1.5; }
+  .star-row { display: flex; gap: 4px; }
+  .star-btn {
+    width: 28px;
+    height: 28px;
+    background: var(--gray-100);
+    border: none;
+    border-radius: 4px;
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    color: var(--gray-600);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-weight: 500;
+  }
+  .star-btn.active {
+    background: var(--orange);
+    color: white;
+  }
+  .score-summary {
+    background: var(--gray-50);
+    border-radius: 10px;
+    padding: 16px;
+    margin-top: 16px;
+    text-align: center;
+  }
+  .score-total-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--gray-800);
+  }
+  .score-total-big .out { font-size: 24px; color: var(--gray-400); }
+  .score-total-label { font-size: 11px; color: var(--gray-400); margin-top: 4px; }
+  .btn-submit-score {
+    width: 100%;
+    background: var(--orange);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    margin-top: 16px;
+    transition: background 0.2s;
+  }
+  .btn-submit-score:hover { background: var(--orange-dark); }
+  .btn-save-draft {
+    width: 100%;
+    background: transparent;
+    color: var(--gray-600);
+    border: 1px solid var(--gray-200);
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    margin-top: 8px;
+  }
+
+  /* Tabs inside dashboard */
+  .tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--gray-200);
+    margin-bottom: 24px;
+  }
+  .tab-btn {
+    padding: 10px 20px;
+    font-size: 13px;
+    color: var(--gray-400);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+  }
+  .tab-btn.active { color: var(--orange); border-bottom-color: var(--orange); }
+
+  .hidden { display: none; }
+  /* RESPONSIVE STYLES */
+  @media (max-width: 1024px) {
+    .hero { grid-template-columns: 1fr; padding: 60px 40px; text-align: center; gap: 40px; }
+    .hero-desc { margin: 0 auto 30px; }
+    .hero-actions { justify-content: center; }
+    .portal-layout { grid-template-columns: 1fr; }
+    .dash-layout { grid-template-columns: 1fr; }
+    .judge-layout { grid-template-columns: 1fr; }
+    .dash-sidebar { padding: 20px; display: flex; overflow-x: auto; white-space: nowrap; }
+    .dash-nav-item { border-left: none; border-bottom: 3px solid transparent; padding: 12px 16px; }
+    .dash-nav-item.active { border-left-color: transparent; border-bottom-color: var(--orange); }
+    .dash-nav-section { display: none; }
+    .judge-split { grid-template-columns: 1fr; }
+  }
+  
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; flex-wrap: wrap; height: auto; padding-top: 10px; padding-bottom: 10px; gap: 10px;}
+    .nav-links { width: 100%; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
+    .section { padding: 40px 20px; }
+    .timeline { grid-template-columns: 1fr; gap: 30px; }
+    .timeline::before { left: 34px; top: 0; bottom: 0; width: 1px; height: 100%; }
+    .timeline-step { display: flex; gap: 20px; text-align: left; }
+    .tl-num { margin-bottom: 0; flex-shrink: 0; }
+    .metric-row { grid-template-columns: 1fr 1fr; }
+    .judge-grid { grid-template-columns: repeat(3, 1fr); }
+    .hero-title { font-size: clamp(48px, 10vw, 64px); }
+    .partner-strip { flex-wrap: wrap; padding: 20px; gap: 20px; }
+    .form-row { grid-template-columns: 1fr; }
+    .portal-sidebar { padding: 30px 20px; }
+    .portal-form { padding: 30px 20px; }
+    .dash-main { padding: 20px; }
+    .judge-topbar { padding: 16px 20px; flex-wrap: wrap; gap: 10px;}
+    .judge-progress-bar { margin: 10px 0; max-width: 100%; }
+    .submissions-table, .leaderboard-table { display: block; overflow-x: auto; white-space: nowrap; }
+  }
+  
+  @media (max-width: 480px) {
+    .hero { padding: 40px 20px; }
+    .nav-logos { flex-direction: column; gap: 10px; align-items: flex-start; }
+    .nav-logos .divider { display: none; }
+    .stat-cards { grid-template-columns: 1fr; }
+    .metric-row { grid-template-columns: 1fr; }
+    .judge-grid { grid-template-columns: 1fr 1fr; }
+    .dash-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .judge-split { padding: 20px; }
+    .submission-viewer { min-height: 300px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logos">
+    <a class="iaa-logo" href="#">
+      <div>
+        <div class="iaa-mark">IAA</div>
+        <div class="iaa-sub">International Advertising Association</div>
+      </div>
+    </a>
+    <div class="divider"></div>
+      <a class="mcx-logo" href="#">
+        <img src="multiconnexions_logo.png" alt="Multiconnexions Logo" style="height: 36px; object-fit: contain; background: white; padding: 4px; border-radius: 4px;">
+      </a>
+      <div class="divider"></div>
+      <span class="quantana-badge">AI Partner - Quantana</span>
+  </div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="showPage('landing')">Home</button>
+    <button class="nav-link" onclick="showPage('submit')">Submit Entry</button>
+    <button class="nav-link" onclick="showPage('organizer')">Organizer</button>
+    <button class="nav-link" onclick="showPage('judge')">Judging Portal</button>
+    <button class="btn-nav-cta" onclick="showPage('submit')">Submit Now</button>
+  </div>
+</nav>
+
+<!-- ==================== LANDING PAGE ==================== -->
+<div class="page active" id="page-landing">
+
+  <div class="hero">
+    <div>
+      <div class="hero-eyebrow">IAA Australia · 2025 Competition</div>
+      <h1 class="hero-title">
+        The<br>
+        <span class="outline">Big</span><br>
+        <span class="accent">Idea.</span>
+      </h1>
+      <p class="hero-desc">Australia's premier student marketing challenge. Pitch your boldest campaign concept to industry leaders and compete for the top spot.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="showPage('submit')">Submit Your Entry</button>
+        <button class="btn-outline">View Brief ↓</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="stat-cards">
+        <div class="stat-card">
+          <div class="stat-num">48<span class="u">hrs</span></div>
+          <div class="stat-label">Submission window remaining</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">127</div>
+          <div class="stat-label">Entries received so far</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">8</div>
+          <div class="stat-label">Shortlisted finalist spots</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">5</div>
+          <div class="stat-label">Expert judges panel</div>
+        </div>
+      </div>
+      <div class="flow-card">
+        <div class="flow-step">
+          <div class="flow-icon">📝</div>
+          <div class="flow-step-label">Submit</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-icon">⭐</div>
+          <div class="flow-step-label">Shortlist</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-icon">🏆</div>
+          <div class="flow-step-label">Judge</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-icon">🎉</div>
+          <div class="flow-step-label">Winners</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="partner-strip">
+    <span class="partner-label">Presented by</span>
+    <div class="partner-item"><div class="partner-dot"></div><span class="partner-name">IAA Australia</span></div>
+    <div class="partner-item"><div class="partner-dot"></div><span class="partner-name">Multiconnexions</span></div>
+    <div class="partner-item"><div class="partner-dot"></div><span class="partner-name">AI Transformation Partner · Quantana</span></div>
+    <div class="partner-item"><div class="partner-dot"></div><span class="partner-name">Client Partner · Telstra</span></div>
+  </div>
+
+  <div class="section section-dark">
+    <div class="section-label">How it works</div>
+    <div class="section-title">Four steps to glory</div>
+    <div class="timeline">
+      <div class="timeline-step">
+        <div class="tl-num">1</div>
+        <div class="tl-title">Read the brief</div>
+        <div class="tl-desc">Download the client brief and develop your marketing campaign concept as a team of up to 4 students.</div>
+      </div>
+      <div class="timeline-step">
+        <div class="tl-num">2</div>
+        <div class="tl-title">Submit your entry</div>
+        <div class="tl-desc">Upload your creative files and project description directly via this platform. Receive instant email confirmation.</div>
+      </div>
+      <div class="timeline-step">
+        <div class="tl-num">3</div>
+        <div class="tl-title">Shortlisting</div>
+        <div class="tl-desc">Organizers review all entries and select 8 finalist submissions to advance to the judging round.</div>
+      </div>
+      <div class="timeline-step">
+        <div class="tl-num">4</div>
+        <div class="tl-title">Expert judging</div>
+        <div class="tl-desc">Five industry judges score finalists across four categories. The winner is revealed at the IAA awards event.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ==================== SUBMISSION PORTAL ==================== -->
+<div class="page" id="page-submit">
+  <div class="portal-layout">
+    <div class="portal-sidebar">
+      <div>
+        <div class="hero-eyebrow">Submit your entry</div>
+        <div class="sidebar-title">The Big Idea 2025</div>
+        <div class="sidebar-desc">Complete all fields and upload your creative work. You'll receive an email confirmation immediately after submitting.</div>
+      </div>
+      <div class="brief-card">
+        <div class="brief-title">Client Brief</div>
+        <div class="brief-body">Create a multicultural marketing campaign that connects authentically with Australia's diverse communities. Your concept should demonstrate cultural insight, creative execution, and measurable impact.</div>
+        <div class="brief-client">
+          <span class="client-badge">CLIENT</span>
+          <span class="client-name">Telstra</span>
+        </div>
+      </div>
+      <div class="scoring-guide">
+        <div class="form-section-title" style="margin-top:0; border-color: rgba(255,255,255,0.08); color: #9e9c97;">Scoring rubric (100 pts total)</div>
+        <div class="score-row"><span class="score-cat">Concept & Strategy</span><span class="score-pts">25 pts</span></div>
+        <div class="score-row"><span class="score-cat">Creative Execution</span><span class="score-pts">25 pts</span></div>
+        <div class="score-row"><span class="score-cat">Cultural Insight</span><span class="score-pts">25 pts</span></div>
+        <div class="score-row"><span class="score-cat">Presentation & Impact</span><span class="score-pts">25 pts</span></div>
+      </div>
+    </div>
+
+    <div class="portal-form">
+      <div class="form-section-title" style="color:#9e9c97; border-color:rgba(255,255,255,0.08);">Team details</div>
+      <div class="form-row" style="color:inherit">
+        <div class="form-group">
+          <label class="form-label">Team name *</label>
+          <input class="form-input" type="text" placeholder="e.g. The Campaign Collective">
+        </div>
+        <div class="form-group">
+          <label class="form-label">University / Institution *</label>
+          <input class="form-input" type="text" placeholder="e.g. University of Melbourne">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Lead member full name *</label>
+          <input class="form-input" type="text" placeholder="First Last">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Lead member email *</label>
+          <input class="form-input" type="email" placeholder="you@uni.edu.au">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Team member 2</label>
+          <input class="form-input" type="text" placeholder="Full name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Team member 3</label>
+          <input class="form-input" type="text" placeholder="Full name">
+        </div>
+      </div>
+
+      <div class="form-section-title" style="color:#9e9c97; border-color:rgba(255,255,255,0.08);">Campaign concept</div>
+      <div class="form-row full">
+        <div class="form-group">
+          <label class="form-label">Campaign title *</label>
+          <input class="form-input" type="text" placeholder="Give your campaign a name">
+        </div>
+      </div>
+      <div class="form-row full">
+        <div class="form-group">
+          <label class="form-label">Executive summary * (max 250 words)</label>
+          <textarea class="form-input form-textarea" placeholder="Describe your campaign concept, target audience, key insight, and expected impact..."></textarea>
+        </div>
+      </div>
+      <div class="form-row full">
+        <div class="form-group">
+          <label class="form-label">Strategic rationale</label>
+          <textarea class="form-input form-textarea" style="min-height:90px" placeholder="Why does this approach work for the Telstra brief?"></textarea>
+        </div>
+      </div>
+
+      <div class="form-section-title" style="color:#9e9c97; border-color:rgba(255,255,255,0.08);">File uploads</div>
+      <div class="upload-zone" onclick="this.style.borderColor='#f26c3c'">
+        <div class="upload-icon">📂</div>
+        <div class="upload-main">Drag & drop your creative files here</div>
+        <div class="upload-hint">PDF, PPT, MP4 · Max 50MB per file · Up to 3 files</div>
+      </div>
+
+      <div class="form-section-title" style="color:#9e9c97; border-color:rgba(255,255,255,0.08); margin-top:28px;">Declarations</div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="original">
+        <label class="checkbox-label" for="original">I confirm this submission is original work created by our team and has not been submitted to any other competition.</label>
+      </div>
+      <div class="checkbox-row">
+        <input type="checkbox" id="terms">
+        <label class="checkbox-label" for="terms">I agree to the IAA Australia competition terms and conditions, including the right for IAA to showcase shortlisted entries.</label>
+      </div>
+
+      <div class="form-submit">
+        <button class="btn-primary" onclick="submitForm()">Submit Entry →</button>
+        <button class="btn-outline" style="font-size:13px; padding:12px 24px;">Save Draft</button>
+      </div>
+      <div class="success-toast" id="success-toast">
+        ✅ <span>Entry submitted successfully! Check your email for confirmation. You'll be notified of shortlisting results within 5 business days.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ORGANIZER DASHBOARD ==================== -->
+<div class="page" id="page-organizer">
+  <div class="dash-layout">
+    <div class="dash-sidebar">
+      <div class="dash-nav-section">Management</div>
+      <div class="dash-nav-item active" onclick="switchDashTab('submissions')">
+        <span class="dash-nav-icon">📋</span> All Submissions
+      </div>
+      <div class="dash-nav-item" onclick="switchDashTab('shortlist')">
+        <span class="dash-nav-icon">⭐</span> Shortlist
+      </div>
+      <div class="dash-nav-item" onclick="switchDashTab('judges')">
+        <span class="dash-nav-icon">👥</span> Judge Management
+      </div>
+      <div class="dash-nav-item" onclick="switchDashTab('leaderboard')">
+        <span class="dash-nav-icon">🏆</span> Final Leaderboard
+      </div>
+      <div class="dash-nav-section" style="margin-top:16px;">Settings</div>
+      <div class="dash-nav-item">
+        <span class="dash-nav-icon">⚙️</span> Competition Setup
+      </div>
+      <div class="dash-nav-item">
+        <span class="dash-nav-icon">✉️</span> Email Templates
+      </div>
+    </div>
+
+    <div class="dash-main">
+      <!-- SUBMISSIONS TAB -->
+      <div id="dash-submissions">
+        <div class="dash-header">
+          <div>
+            <div class="dash-page-title">All Submissions</div>
+            <div class="dash-page-sub">Triage entries and build your shortlist of 8</div>
+          </div>
+          <div style="display:flex; gap:8px">
+            <button class="btn-sm-ghost">Export CSV</button>
+            <button class="btn-sm">Invite Judges</button>
+          </div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-card">
+            <div class="metric-label">Total Received</div>
+            <div class="metric-value">127</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Shortlisted</div>
+            <div class="metric-value" style="color:var(--orange)">8</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Pending Review</div>
+            <div class="metric-value">119</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Days to Deadline</div>
+            <div class="metric-value">3</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Recent submissions</span>
+            <div style="display:flex; gap:8px; align-items:center">
+              <input style="background:var(--gray-50); border:1px solid var(--gray-200); border-radius:6px; padding:6px 12px; font-size:13px; color:var(--gray-800); outline:none;" placeholder="Search teams...">
+            </div>
+          </div>
+          <table class="submissions-table">
+            <thead>
+              <tr>
+                <th style="width:36px"></th>
+                <th>Team / University</th>
+                <th>Campaign Title</th>
+                <th>Submitted</th>
+                <th>Status</th>
+                <th style="text-align:right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div class="check-btn checked" onclick="toggleCheck(this)">✓</div></td>
+                <td><div class="sub-team">Mosaic Minds</div><div class="sub-uni">University of Melbourne</div></td>
+                <td style="color:var(--gray-600)">Australia Amplified</td>
+                <td style="color:var(--gray-400); font-size:12px">May 19, 10:24am</td>
+                <td><span class="badge badge-shortlisted">Shortlisted</span></td>
+                <td style="text-align:right"><button class="btn-sm-ghost">View</button></td>
+              </tr>
+              <tr>
+                <td><div class="check-btn checked" onclick="toggleCheck(this)">✓</div></td>
+                <td><div class="sub-team">The Connectors</div><div class="sub-uni">UNSW Sydney</div></td>
+                <td style="color:var(--gray-600)">Bridging Worlds</td>
+                <td style="color:var(--gray-400); font-size:12px">May 19, 2:11pm</td>
+                <td><span class="badge badge-shortlisted">Shortlisted</span></td>
+                <td style="text-align:right"><button class="btn-sm-ghost">View</button></td>
+              </tr>
+              <tr>
+                <td><div class="check-btn" onclick="toggleCheck(this)"></div></td>
+                <td><div class="sub-team">Cultural Pulse</div><div class="sub-uni">Macquarie University</div></td>
+                <td style="color:var(--gray-600)">Signal & Noise</td>
+                <td style="color:var(--gray-400); font-size:12px">May 20, 9:05am</td>
+                <td><span class="badge badge-reviewing">Reviewing</span></td>
+                <td style="text-align:right"><button class="btn-sm-ghost">View</button></td>
+              </tr>
+              <tr>
+                <td><div class="check-btn" onclick="toggleCheck(this)"></div></td>
+                <td><div class="sub-team">Next Wave</div><div class="sub-uni">QUT Brisbane</div></td>
+                <td style="color:var(--gray-600)">The Diverse Thread</td>
+                <td style="color:var(--gray-400); font-size:12px">May 20, 11:48am</td>
+                <td><span class="badge badge-new">New</span></td>
+                <td style="text-align:right"><button class="btn-sm-ghost">View</button></td>
+              </tr>
+              <tr>
+                <td><div class="check-btn" onclick="toggleCheck(this)"></div></td>
+                <td><div class="sub-team">Spectrum Agency</div><div class="sub-uni">RMIT University</div></td>
+                <td style="color:var(--gray-600)">Many Voices, One Brand</td>
+                <td style="color:var(--gray-400); font-size:12px">May 20, 3:22pm</td>
+                <td><span class="badge badge-new">New</span></td>
+                <td style="text-align:right"><button class="btn-sm-ghost">View</button></td>
+              </tr>
+              <tr>
+                <td><div class="check-btn" onclick="toggleCheck(this)"></div></td>
+                <td><div class="sub-team">Anthem Creative</div><div class="sub-uni">University of Sydney</div></td>
+                <td style="color:var(--gray-600)">Roots & Routes</td>
+                <td style="color:var(--gray-400); font-size:12px">May 21, 8:30am</td>
+                <td><span class="badge badge-new">New</span></td>
+                <td style="text-align:right"><button class="btn-sm-ghost">View</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- JUDGES TAB -->
+      <div id="dash-judges" class="hidden">
+        <div class="dash-header">
+          <div>
+            <div class="dash-page-title">Judge Management</div>
+            <div class="dash-page-sub">Track judge progress across 8 shortlisted submissions</div>
+          </div>
+          <button class="btn-sm" onclick="alert('Invite email sent!')">+ Invite Judge</button>
+        </div>
+        <div class="metric-row">
+          <div class="metric-card">
+            <div class="metric-label">Judges Invited</div>
+            <div class="metric-value">5</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Scores Submitted</div>
+            <div class="metric-value" style="color:var(--orange)">24</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Total Expected</div>
+            <div class="metric-value">40</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-label">Completion</div>
+            <div class="metric-value">60%</div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-header"><span class="panel-title">Judge progress tracker</span></div>
+          <div class="judge-grid">
+            <div class="judge-card">
+              <div class="judge-avatar chief">SC</div>
+              <div class="judge-name">Sarah Chen</div>
+              <div class="judge-org">Telstra · Chief Judge</div>
+              <div class="judge-progress"><div class="judge-bar" style="width:100%"></div></div>
+              <div class="judge-count">8 / 8 scored</div>
+            </div>
+            <div class="judge-card">
+              <div class="judge-avatar">MO</div>
+              <div class="judge-name">Marcus O'Brien</div>
+              <div class="judge-org">IAA Australia</div>
+              <div class="judge-progress"><div class="judge-bar" style="width:75%"></div></div>
+              <div class="judge-count">6 / 8 scored</div>
+            </div>
+            <div class="judge-card">
+              <div class="judge-avatar">PK</div>
+              <div class="judge-name">Priya Kapoor</div>
+              <div class="judge-org">Multiconnexions</div>
+              <div class="judge-progress"><div class="judge-bar" style="width:62.5%"></div></div>
+              <div class="judge-count">5 / 8 scored</div>
+            </div>
+            <div class="judge-card">
+              <div class="judge-avatar">JL</div>
+              <div class="judge-name">James Lee</div>
+              <div class="judge-org">Dentsu Creative</div>
+              <div class="judge-progress"><div class="judge-bar" style="width:37.5%"></div></div>
+              <div class="judge-count">3 / 8 scored</div>
+            </div>
+            <div class="judge-card">
+              <div class="judge-avatar">AN</div>
+              <div class="judge-name">Amara Nwosu</div>
+              <div class="judge-org">Ogilvy Australia</div>
+              <div class="judge-progress"><div class="judge-bar" style="width:25%"></div></div>
+              <div class="judge-count">2 / 8 scored</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LEADERBOARD TAB -->
+      <div id="dash-leaderboard" class="hidden">
+        <div class="dash-header">
+          <div>
+            <div class="dash-page-title">Final Leaderboard</div>
+            <div class="dash-page-sub">Aggregate scores from all 5 judges · 40 of 40 scores submitted</div>
+          </div>
+          <button class="btn-sm">Export Results</button>
+        </div>
+        <div class="panel">
+          <div class="panel-header"><span class="panel-title">Overall rankings</span><span style="font-size:12px; color:var(--gray-400)">Scores out of 100</span></div>
+          <table class="leaderboard-table">
+            <thead>
+              <tr>
+                <th style="width:60px">Rank</th>
+                <th>Team</th>
+                <th>University</th>
+                <th>Concept</th>
+                <th>Creative</th>
+                <th>Cultural</th>
+                <th>Presentation</th>
+                <th style="min-width:180px">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background:#fffbf5">
+                <td><span class="rank-num rank-1">1</span></td>
+                <td style="font-weight:600">Mosaic Minds</td>
+                <td style="color:var(--gray-400); font-size:12px">Univ. of Melbourne</td>
+                <td style="font-family:'DM Mono',monospace; font-size:12px">23</td>
+                <td style="font-family:'DM Mono',monospace; font-size:12px">24</td>
+                <td style="font-family:'DM Mono',monospace; font-size:12px">22</td>
+                <td style="font-family:'DM Mono',monospace; font-size:12px">22</td>
+                <td>
+                  <div class="score-bar-wrap">
+                    <div class="score-bar-bg"><div class="score-bar-fill" style="width:91%"></div></div>
+                    <span class="score-total">91</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="rank-num rank-2">2</span></td>
+                <td style="font-weight:600">The Connectors</td>
+                <td style="color:var(--gray-400); font-size:12px">UNSW Sydney</td>
+                <td style="font-family:'DM Mono',monospace; font-size:12px">22</td>
+                <td style="font-family:'DM Mono',monospace; font-size:12px">21</td>
+                <td style="font-family:'DM Mono',monospace; font-size:12px">23</td>
+                <td style="font-family:'DM Mono',monospace; font-size:12px">21</td>
+                <td>
+                  <div class="score-bar-wrap">
+                    <div class="score-bar-bg"><div class="score-bar-fill" style="width:87%"></div></div>
+                    <span class="score-total">87</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="rank-num rank-3">3</span></td>
+                <td style="font-weight:600">Cultural Pulse</td>
+                <td style="color:var(--gray-400); font-size:12px">Macquarie Univ.</td>
+                <td style="font-family:'DM Mono',monospace; font-size:12px">20</td>
+                <td style="font-family:'DM Mono',monospace; font-size:12px">21</td>
+                <td style="font-family:'DM Mono',monospace; font-size:12px">22</td>
+                <td style="font-family:'DM Mono',monospace; font-size:12px">20</td>
+                <td>
+                  <div class="score-bar-wrap">
+                    <div class="score-bar-bg"><div class="score-bar-fill" style="width:83%"></div></div>
+                    <span class="score-total">83</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="rank-num">4</span></td>
+                <td style="font-weight:600">Next Wave</td>
+                <td style="color:var(--gray-400); font-size:12px">QUT Brisbane</td>
+                <td style="font-family:'DM Mono',monospace; font-size:12px">19</td>
+                <td style="font-family:'DM Mono',monospace; font-size:12px">20</td>
+                <td style="font-family:'DM Mono',monospace; font-size:12px">19</td>
+                <td style="font-family:'DM Mono',monospace; font-size:12px">20</td>
+                <td>
+                  <div class="score-bar-wrap">
+                    <div class="score-bar-bg"><div class="score-bar-fill" style="width:78%"></div></div>
+                    <span class="score-total">78</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="rank-num">5</span></td>
+                <td style="font-weight:600">Spectrum Agency</td>
+                <td style="color:var(--gray-400); font-size:12px">RMIT University</td>
+                <td style="font-family:'DM Mono',monospace; font-size:12px">18</td>
+                <td style="font-family:'DM Mono',monospace; font-size:12px">19</td>
+                <td style="font-family:'DM Mono',monospace; font-size:12px">18</td>
+                <td style="font-family:'DM Mono',monospace; font-size:12px">18</td>
+                <td>
+                  <div class="score-bar-wrap">
+                    <div class="score-bar-bg"><div class="score-bar-fill" style="width:73%"></div></div>
+                    <span class="score-total">73</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ==================== JUDGING PORTAL ==================== -->
+<div class="page" id="page-judge">
+  <div class="judge-portal">
+    <div class="judge-topbar">
+      <div>
+        <div class="judge-topbar-title">Priya Kapoor · Multiconnexions</div>
+        <div class="judge-topbar-sub">The Big Idea 2025 · Judging Panel</div>
+      </div>
+      <div class="judge-progress-bar">
+        <div class="progress-label">
+          <span>Progress</span>
+          <span>3 of 8 scored</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill"></div>
+        </div>
+      </div>
+      <button class="btn-sm-ghost" style="color:var(--gray-600)">Log out</button>
+    </div>
+
+    <div class="judge-content">
+      <!-- Entry list -->
+      <div class="judge-list-panel">
+        <div class="judge-list-header">Shortlisted entries (8)</div>
+        <div class="judge-entry-item scored active" onclick="selectEntry(this, 'Mosaic Minds', 'Univ. of Melbourne', 'Australia Amplified')">
+          <div class="entry-team">Mosaic Minds</div>
+          <div class="entry-uni">Univ. of Melbourne</div>
+          <div class="entry-scored-badge">✓ Scored</div>
+        </div>
+        <div class="judge-entry-item scored" onclick="selectEntry(this, 'The Connectors', 'UNSW Sydney', 'Bridging Worlds')">
+          <div class="entry-team">The Connectors</div>
+          <div class="entry-uni">UNSW Sydney</div>
+          <div class="entry-scored-badge">✓ Scored</div>
+        </div>
+        <div class="judge-entry-item scored" onclick="selectEntry(this, 'Cultural Pulse', 'Macquarie University', 'Signal & Noise')">
+          <div class="entry-team">Cultural Pulse</div>
+          <div class="entry-uni">Macquarie University</div>
+          <div class="entry-scored-badge">✓ Scored</div>
+        </div>
+        <div class="judge-entry-item" onclick="selectEntry(this, 'Next Wave', 'QUT Brisbane', 'The Diverse Thread')">
+          <div class="entry-team">Next Wave</div>
+          <div class="entry-uni">QUT Brisbane</div>
+        </div>
+        <div class="judge-entry-item" onclick="selectEntry(this, 'Spectrum Agency', 'RMIT University', 'Many Voices, One Brand')">
+          <div class="entry-team">Spectrum Agency</div>
+          <div class="entry-uni">RMIT University</div>
+        </div>
+        <div class="judge-entry-item" onclick="selectEntry(this, 'Anthem Creative', 'Univ. of Sydney', 'Roots & Routes')">
+          <div class="entry-team">Anthem Creative</div>
+          <div class="entry-uni">Univ. of Sydney</div>
+        </div>
+        <div class="judge-entry-item" onclick="selectEntry(this, 'Bold Collective', 'Monash University', 'The Common Thread')">
+          <div class="entry-team">Bold Collective</div>
+          <div class="entry-uni">Monash University</div>
+        </div>
+        <div class="judge-entry-item" onclick="selectEntry(this, 'Signal Studio', 'UTS Sydney', 'Frequency')">
+          <div class="entry-team">Signal Studio</div>
+          <div class="entry-uni">UTS Sydney</div>
+        </div>
+      </div>
+
+      <!-- Submission view -->
+      <div class="judge-submission-panel">
+        <div class="submission-title" id="judge-entry-title">Mosaic Minds</div>
+        <div class="submission-meta" id="judge-entry-meta">University of Melbourne · Campaign: Australia Amplified</div>
+        <div class="submission-preview">
+          <div>
+            <div style="font-size:40px; margin-bottom:12px">📄</div>
+            <div style="font-weight:500; color:var(--gray-600); font-size:14px">Submission file</div>
+            <div style="font-size:12px; margin-top:6px">australia-amplified-deck.pdf</div>
+            <button class="btn-sm" style="margin-top:16px">Download File</button>
+          </div>
+        </div>
+        <div class="submission-desc">
+          <strong style="display:block; margin-bottom:8px; font-size:13px; color:var(--gray-800)">Campaign summary</strong>
+          Australia Amplified is a multicultural brand platform for Telstra that celebrates the diverse voices shaping modern Australia. The campaign uses community storytelling across digital, OOH, and social channels to create authentic connections with first-generation Australians and multicultural youth audiences. Key insight: 32% of Australians speak a language other than English at home — yet mainstream advertising rarely reflects this reality.
+        </div>
+      </div>
+
+      <!-- Rubric scoring -->
+      <div class="rubric-panel">
+        <div class="rubric-title">Score this entry</div>
+
+        <div class="rubric-category">
+          <div class="rubric-cat-header">
+            <span class="rubric-cat-name">Concept & Strategy</span>
+            <span class="rubric-score-display" id="score-concept">20<span style="font-size:10px; color:var(--gray-400)">/25</span></span>
+          </div>
+          <div class="rubric-desc">Clarity of strategic thinking, audience insight, and campaign objective alignment.</div>
+          <div class="star-row" id="row-concept">
+            <button class="star-btn active" onclick="setScore('concept',5,25)">5</button>
+            <button class="star-btn active" onclick="setScore('concept',10,25)">10</button>
+            <button class="star-btn active" onclick="setScore('concept',15,25)">15</button>
+            <button class="star-btn active" onclick="setScore('concept',20,25)">20</button>
+            <button class="star-btn" onclick="setScore('concept',25,25)">25</button>
+          </div>
+        </div>
+
+        <div class="rubric-category">
+          <div class="rubric-cat-header">
+            <span class="rubric-cat-name">Creative Execution</span>
+            <span class="rubric-score-display" id="score-creative">15<span style="font-size:10px; color:var(--gray-400)">/25</span></span>
+          </div>
+          <div class="rubric-desc">Visual design quality, messaging craft, and multi-channel creative coherence.</div>
+          <div class="star-row" id="row-creative">
+            <button class="star-btn active" onclick="setScore('creative',5,25)">5</button>
+            <button class="star-btn active" onclick="setScore('creative',10,25)">10</button>
+            <button class="star-btn active" onclick="setScore('creative',15,25)">15</button>
+            <button class="star-btn" onclick="setScore('creative',20,25)">20</button>
+            <button class="star-btn" onclick="setScore('creative',25,25)">25</button>
+          </div>
+        </div>
+
+        <div class="rubric-category">
+          <div class="rubric-cat-header">
+            <span class="rubric-cat-name">Cultural Insight</span>
+            <span class="rubric-score-display" id="score-cultural">20<span style="font-size:10px; color:var(--gray-400)">/25</span></span>
+          </div>
+          <div class="rubric-desc">Depth of cultural understanding, authenticity, and relevance to multicultural audiences.</div>
+          <div class="star-row" id="row-cultural">
+            <button class="star-btn active" onclick="setScore('cultural',5,25)">5</button>
+            <button class="star-btn active" onclick="setScore('cultural',10,25)">10</button>
+            <button class="star-btn active" onclick="setScore('cultural',15,25)">15</button>
+            <button class="star-btn active" onclick="setScore('cultural',20,25)">20</button>
+            <button class="star-btn" onclick="setScore('cultural',25,25)">25</button>
+          </div>
+        </div>
+
+        <div class="rubric-category">
+          <div class="rubric-cat-header">
+            <span class="rubric-cat-name">Presentation & Impact</span>
+            <span class="rubric-score-display" id="score-presentation">10<span style="font-size:10px; color:var(--gray-400)">/25</span></span>
+          </div>
+          <div class="rubric-desc">Clarity of pitch, persuasiveness, and expected real-world business impact.</div>
+          <div class="star-row" id="row-presentation">
+            <button class="star-btn active" onclick="setScore('presentation',5,25)">5</button>
+            <button class="star-btn active" onclick="setScore('presentation',10,25)">10</button>
+            <button class="star-btn" onclick="setScore('presentation',15,25)">15</button>
+            <button class="star-btn" onclick="setScore('presentation',20,25)">20</button>
+            <button class="star-btn" onclick="setScore('presentation',25,25)">25</button>
+          </div>
+        </div>
+
+        <div class="score-summary">
+          <div class="score-total-big"><span id="total-score">65</span><span class="out">/100</span></div>
+          <div class="score-total-label">Total score</div>
+        </div>
+
+        <button class="btn-submit-score" onclick="alert('Score saved! Moving to next entry.')">Submit Score →</button>
+        <button class="btn-save-draft">Save as draft</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  const map = {landing:0, submit:1, organizer:2, judge:3};
+  document.querySelectorAll('.nav-link')[map[id]]?.classList.add('active');
+}
+
+function submitForm() {
+  document.getElementById('success-toast').classList.add('visible');
+  setTimeout(() => document.getElementById('success-toast').classList.remove('visible'), 5000);
+}
+
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+  el.textContent = el.classList.contains('checked') ? '✓' : '';
+}
+
+function switchDashTab(tab) {
+  ['submissions','judges','leaderboard'].forEach(t => {
+    document.getElementById('dash-' + t).classList.add('hidden');
+  });
+  document.getElementById('dash-' + tab).classList.remove('hidden');
+  document.querySelectorAll('.dash-nav-item').forEach((el, i) => el.classList.remove('active'));
+  const tabs = ['submissions','shortlist','judges','leaderboard'];
+  const idx = tabs.indexOf(tab === 'shortlist' ? 'submissions' : tab);
+  document.querySelectorAll('.dash-nav-item')[tabs.indexOf(tab === 'shortlist' ? 'shortlist' : tab)]?.classList.add('active');
+  document.querySelectorAll('.dash-nav-item').forEach((el,i) => {
+    if (['submissions','shortlist','judges','leaderboard'][i] === tab) el.classList.add('active');
+  });
+}
+
+const scores = {concept: 20, creative: 15, cultural: 20, presentation: 10};
+
+function setScore(cat, val, max) {
+  scores[cat] = val;
+  const display = document.getElementById('score-' + cat);
+  display.innerHTML = val + '<span style="font-size:10px;color:var(--gray-400)">/' + max + '</span>';
+  const buttons = document.getElementById('row-' + cat).querySelectorAll('.star-btn');
+  const vals = [5,10,15,20,25];
+  buttons.forEach((btn, i) => {
+    btn.classList.toggle('active', vals[i] <= val);
+  });
+  updateTotal();
+}
+
+function updateTotal() {
+  const total = Object.values(scores).reduce((a,b) => a+b, 0);
+  document.getElementById('total-score').textContent = total;
+}
+
+function selectEntry(el, team, uni, campaign) {
+  document.querySelectorAll('.judge-entry-item').forEach(e => e.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('judge-entry-title').textContent = team;
+  document.getElementById('judge-entry-meta').textContent = uni + ' · Campaign: ' + campaign;
+}
+
+updateTotal();
+</script>
+</body>
+</html>
